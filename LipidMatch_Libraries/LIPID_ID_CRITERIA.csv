@@ -1,0 +1,172 @@
+CSV File,Columns containing all necessary fragments for ID,Columns containing fragments where atleast one fragment must be observed for confirmation,Run DDA,Run AIF (Ignore this column if you don't have AIF data),By Class only - total C:DB,Polarity,Adduct,Notes
+Ac2PIM1_neg_minH.csv,2,3;4,TRUE,FALSE,FALSE,Neg,[M-H]-,Diacylated phosphatidylinositol monomannoside
+Ac2PIM2_neg_minH.csv,2,3;4,TRUE,FALSE,FALSE,Neg,[M-H]-,Diacylated phosphatidylinositol dimannoside
+Ac3PIM2_neg_minH.csv,3;4;5,,TRUE,FALSE,FALSE,Neg,[M-H]-,Triacylated phosphatidylinositol dimannoside
+Ac4PIM2_neg_minH.csv,3;4;5;6,,TRUE,FALSE,FALSE,Neg,[M-H]-,Tetraacylated phosphatidylinositol dimannoside
+AcCa_H.csv,2;6,,TRUE,TRUE,FALSE,Pos,[M+H]+,Acylcarnitine
+BA_Glycine_neg_minH.csv,2,4;5,TRUE,TRUE,FALSE,Neg,[M-H]-,Bial Acid Glycine Conjugate
+BA_neg_minH.csv,2;4,,TRUE,TRUE,FALSE,Neg,[M-H]-,Beta: Bial Acid
+BA_Taurine_neg_minH.csv,,4;5,TRUE,TRUE,FALSE,Neg,[M-H]-,Bial Acid Taurine Conjugate
+CE_NH4.csv,3;9,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Cholesterol Ester
+Cer_ADS_neg_HCO2.csv,3;14,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Dihydrosphingosine Fatty acid: a-hydroxy fatty acid
+Cer_ADS_neg_minH.csv,2;13,,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Dihydrosphingosine Fatty acid: a-hydroxy fatty acid
+Cer_AP_neg_HCO2.csv,3;5,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
+Cer_AP_neg_minH.csv,2;4,,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
+Cer_AS_neg_HCO2.csv,3,7;15,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Sphingosine Fatty acid: a-hydroxy fatty acid
+Cer_AS_neg_minH.csv,2,6;14,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Sphingosine Fatty acid: a-hydroxy fatty acid
+Cer_BDS_neg_HCO2.csv,3;4,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,
+Cer_BDS_neg_minH.csv,2;3,,FALSE,FALSE,FALSE,Neg,[M-H]-,
+Cer_BS_neg_HCO2.csv,3;5,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,
+Cer_BS_neg_minH.csv,2;4,,FALSE,FALSE,FALSE,Neg,[M-H]-,
+Cer_EODS_neg_HCO2.csv,3;4,5;6;7,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Dihydrosphingosine Fatty acid: esterified w-hydroxy fatty acid
+Cer_EODS_neg_minH.csv,2;6,4;5;7,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Dihydrosphingosine Fatty acid: esterified w-hydroxy fatty acid
+Cer_EOS_neg_HCO2.csv,3;7,5;6;8,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Sphingosine Fatty acid: esterified w-hydroxy fatty acid
+Cer_EOS_neg_minH.csv,2;6,4;5;7,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Sphingosine Fatty acid: esterified w-hydroxy fatty acid
+Cer_H.csv,3;6,,TRUE,TRUE,FALSE,Pos,[M+H]+,Ceramide
+Cer_NDS_H.csv,6,5;8,FALSE,FALSE,FALSE,Pos,[M+H]+,Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+Cer_NDS_neg_HCO2.csv,2;7,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+Cer_NDS_neg_minH.csv,2;7,,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+Cer_neg_HCO2.csv,3;5,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Ceramide
+Cer_NP_neg_HCO2.csv,3,6;7,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Backbone: Phytosphingosine Fatty acid: Fatty acid: non-hydroxy fatty acid
+Cer_NP_neg_minH.csv,2,5;6,FALSE,FALSE,FALSE,Neg,[M-H]-,Backbone: Phytosphingosine Fatty acid: Fatty acid: non-hydroxy fatty acid
+Cer_NS_H.csv,6,5;8,FALSE,FALSE,FALSE,Pos,[M+H]+,"Ceramide (Nonhydroxyacyl sphingosine) (duplicate, MS-DIAL version)"
+Cer_NS_neg_HCO2.csv,3;8,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,"Ceramide (Nonhydroxyacyl sphingosine) (duplicate, MS-DIAL version)"
+CerP_H.csv,2;3,4;5;6;7,TRUE,FALSE,FALSE,Pos,[M+H]+,Ceramide-1-phosphate
+CerP_neg_minH.csv,3,,TRUE,FALSE,FALSE,Neg,[M-H]-,Ceramide-1-phosphate
+CL_3Na_min2H.csv,3;4;5;6,,TRUE,TRUE,FALSE,Pos,[M+3Na-2H]+,Cardiolipin: further fragments known
+CL_neg_min2H.csv,11;12;13;14,,TRUE,TRUE,FALSE,Neg,[M-2H]-,Cardiolipin
+CL_neg_minH.csv,9;10;11;12,,TRUE,TRUE,FALSE,Neg,[M-H]-,Cardiolipin: 13;14;15;16 may also be good fragments for confirmation
+CL_NH4.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Cardiolipin
+CoQ_NH4.csv,3,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Coenzyme Q
+DG_NH4.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Diacylglyceride or Diacylglycerol
+DGDG_neg_HCO2.csv,3;4,,TRUE,FALSE,FALSE,Neg,[M+HCO2]-,Digalactosyldiacylglycerol
+DGDG_NH4.csv,3,5;6,TRUE,FALSE,FALSE,Pos,[M+NH4]+,Digalactosyldiacylglycerol
+DGDG_NH4_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+NH4]+,Digalactosyldiacylglycerol
+DGTS_H.csv,3;6;7,,TRUE,FALSE,FALSE,Pos,[M+H]+,Diacylglyceryltrimethylhomo-Ser
+DMPE_neg_minH.csv,3;4,,TRUE,FALSE,FALSE,Neg,[M-H]-,Dimethyl Phosphatidylethanolamine
+Ganglioside_neg_minH.csv,2;4,,TRUE,TRUE,FALSE,Neg,[M-H]-,Ganglioside or glycan ceramides
+GlcADG_neg_minH.csv,9;10,,FALSE,FALSE,FALSE,Neg,[M-H]-,Glucuronosyldiacylglycerol 
+GlcADG_NH4.csv,5;6,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,Glucuronosyldiacylglycerol 
+GlcCer_AP_neg_HCO2.csv,3;5,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,glucosyl-ceramide Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
+GlcCer_AP_neg_minH.csv,2;4,,FALSE,FALSE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
+GlcCer_AS_neg_HCO2.csv,3,12;23,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,glucosyl-ceramide Backbone: Sphingosine Fatty acid: a-hydroxy fatty acid
+GlcCer_AS_neg_minH.csv,2,11;22,FALSE,FALSE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Sphingosine Fatty acid: a-hydroxy fatty acid
+GlcCer_NDS_H.csv,7,6;9,FALSE,FALSE,FALSE,Pos,[M+H]+,glucosyl-ceramide Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+GlcCer_NDS_neg_HCO2.csv,3;4,5;6;7,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,glucosyl-ceramide Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+GlcCer_NDS_neg_minH.csv,2;3,4;5;6,FALSE,FALSE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
+GlcCer_NP_neg_HCO2.csv,3;4,7;8,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,glucosyl-ceramide Backbone: Phytosphingosine Fatty acid: Fatty acid: non-hydroxy fatty acid
+GlcCer_NP_neg_minH.csv,2,6;7,FALSE,FALSE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Phytosphingosine Fatty acid: Fatty acid: non-hydroxy fatty acid
+GlcCer_NS_H.csv,7,6;9,TRUE,TRUE,FALSE,Pos,[M+H]+,Glucosyl-Nonhydroxyacyl sphingosine
+GlcCer_NS_neg_HCO2.csv,3;4,5;6;7,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Glucosyl-Nonhydroxyacyl sphingosine
+lanosteryl_NH4.csv,4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,lanosteryl
+LDGTS_H.csv,4,,FALSE,FALSE,FALSE,Pos,[M+H]+,Lysodiacylglyceryltrimethylhomo-Ser
+LipidA_PP_2_neg_minH.csv,5;6,,FALSE,FALSE,FALSE,Neg,[M-H]-,Diphosphorylated hexaacyl Lipid A
+LipidA_PP_neg_minH.csv,2;5;6,7;8,FALSE,FALSE,FALSE,Neg,[M-H]-,Diphosphorylated hexaacyl Lipid A
+LPC_H.csv,2;5,,TRUE,TRUE,FALSE,Pos,[M+H]+,Lysophosphatidylcholine
+LPC_Na.csv,4,,TRUE,TRUE,FALSE,Pos,[M+Na]+,Lysophosphatidylcholine
+LPC_neg_C2H3O2.csv,9,,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Lysophosphatidylcholine
+LPC_neg_CHO2.csv,3;9,,TRUE,FALSE,FALSE,Neg,[M+HCO2]-,Lysophosphatidylcholine
+LPE_H.csv,3,,TRUE,TRUE,FALSE,Pos,[M+H]+,Lysophosphatidylethanolamine
+LPE_Na.csv,3,,TRUE,TRUE,FALSE,Pos,[M+Na]+,Lysophosphatidylethanolamine
+LPE_neg_minH.csv,5,,TRUE,TRUE,FALSE,Neg,[M-H]-,Lysophosphatidylethanolamine
+LPI_neg_minH.csv,2;5,,TRUE,TRUE,FALSE,Neg,[M-H]-,Lysophosphatidylinositol
+MG_NH4.csv,3,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Monoacylglycerol
+MGDG_H.csv,3;5,,FALSE,FALSE,FALSE,Pos,[M+H]+,Beta: Monogalactosyldiacylglycerol; 
+MGDG_Na.csv,3;4,,TRUE,FALSE,FALSE,Pos,[M+Na]+,Monogalactosyldiacylglycerol
+MGDG_neg_HCO2.csv,3;4,,TRUE,FALSE,FALSE,Neg,[M+HCO2]-,Monogalactosyldiacylglycerol
+MGDG_NH4.csv,3,5;6,TRUE,FALSE,FALSE,Pos,[M+NH4]+,Monogalactosyldiacylglycerol
+MGDG_NH4_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+NH4]+,Monogalactosyldiacylglycerol
+MGDG_NH4minCO.csv,2,7;8,TRUE,FALSE,FALSE,Pos,[M+NH4-CO]+,Monogalactosyldiacylglycerol
+MMPE_neg_minH.csv,3;4,,TRUE,FALSE,FALSE,Neg,[M-H]-,Monomethyl-Phosphatidylethanolamine
+OxCL_neg_min2H.csv,11;12;13;14,,FALSE,TRUE,FALSE,Neg,[M-2H]-,"Beta: Oxidized Cardiolipin; add FA(OOH)-H2O fragmentation, reduce list to only most common species"
+OxCL_neg_minH.csv,9;10;11;12,,FALSE,TRUE,FALSE,Neg,[M-H]-,"Beta: Oxidized Cardiolipin; add FA(OOH)-H2O fragmentation, reduce list to only most common species 13;14;15;16 may also be good fragments for confirmation"
+OxCL_NH4.csv,3;4,,FALSE,TRUE,FALSE,Pos,[M+NH4]+,"Beta: Oxidized Cardiolipin; add FA(OOH)-H2O fragmentation, reduce list to only most common species"
+OxLPC_H.csv,5,,TRUE,TRUE,FALSE,Pos,[M+H]+,Oxidized lysophosphatidylcholine
+OxLPC_Na.csv,7,,TRUE,TRUE,FALSE,Pos,[M+Na]+,Oxidized lysophosphatidylcholine
+OxLPC_neg_CHO2.csv,3;9,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Oxidized lysophosphatidylcholine
+OxLPE_H.csv,3,,TRUE,TRUE,FALSE,Pos,[M+H]+,Oxidized lysophosphatidylethanolamine
+OxLPE_Na.csv,3,,TRUE,TRUE,FALSE,Pos,[M+Na]+,Oxidized lysophosphatidylethanolamine
+OxLPE_neg_minH.csv,2;5,,TRUE,TRUE,FALSE,Neg,[M-H]-,Oxidized lysophosphatidylethanolamine
+OxPC_H.csv,8,4;5,TRUE,TRUE,FALSE,Pos,[M+H]+,Oxidized phosphatidylcholine
+OxPC_H_Class.csv,4,,FALSE,FALSE,TRUE,Pos,[M+H]+,Oxidized phosphatidylcholine
+OxPC_Na.csv,2,9;10,TRUE,TRUE,FALSE,Pos,[M+Na]+,Oxidized phosphatidylcholine
+OxPC_neg_CHO2.csv,10;11,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Oxidized phosphatidylcholine
+OxPE_H.csv,3,4;5,TRUE,TRUE,FALSE,Pos,[M+H]+,Oxidized phosphatidylethanolamine
+OxPE_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Oxidized phosphatidylethanolamine
+OxPE_Na.csv,3,5;6,TRUE,TRUE,FALSE,Pos,[M+Na]+,Oxidized phosphatidylethanolamine
+OxPE_neg_minH.csv,2;7;8,,TRUE,TRUE,FALSE,Neg,[M-H]-,Oxidized phosphatidylethanolamine
+OxTG_NH4.csv,3;4;5,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,Oxidized triacylglycerol: Only most common chains included
+OxTG_reduced_NH4.csv,3;4;5,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Oxidized triacylglycerol: Reduced to only NL of RCOOH to speed up LipidMatch. Only most common chains included
+PA_H.csv,3,4;5,TRUE,TRUE,FALSE,Pos,[M+H]+,Phosphatidic acid
+PA_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Phosphatidic acid
+PA_neg_minH.csv,8;9,,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidic acid
+PC_H.csv,2;12,8;9,TRUE,TRUE,FALSE,Pos,[M+H]+,Phosphatidylcholine
+PC_H_Class.csv,4,,FALSE,FALSE,TRUE,Pos,[M+H]+,Phosphatidylcholine
+PC_H_LibAllTails.csv,2;10,8;9,FALSE,FALSE,FALSE,Pos,[M+H]+,Phosphatidylcholine: Every possible chain (large library)
+PC_Na.csv,2;3;4;5;10,6;7,TRUE,TRUE,FALSE,Pos,[M+Na]+,Phosphatidylcholine
+PC_neg_C2H3O2.csv,3,9;10,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Phosphatidylcholine
+PC_neg_CHO2.csv,10;11,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Phosphatidylcholine
+PE_H.csv,3,4;5,TRUE,TRUE,FALSE,Pos,[M+H]+,Phosphatidylethanolamine
+PE_H_Class.csv,3,,TRUE,TRUE,TRUE,Pos,[M+H]+,Phosphatidylethanolamine
+PE_Na.csv,4,5;6,TRUE,TRUE,FALSE,Pos,[M+Na]+,Phosphatidylethanolamine
+PE_neg_minH.csv,7;8,,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidylethanolamine
+PEG_Pos.csv,3;4,,FALSE,FALSE,FALSE,Pos,[M+?]+,polyethylene glycol: Beta (multiple adducts)
+PG_H.csv,4;5,,TRUE,TRUE,FALSE,Pos,[M+H]+,Phosphatidylglycerol
+PG_neg_minH.csv,12;13,,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidylglycerol
+PG_NH4.csv,4,9;10,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Phosphatidylglycerol
+PG_NH4_Class.csv,4,,TRUE,FALSE,TRUE,Pos,[M+NH4]+,Phosphatidylglycerol
+PI_neg_minH.csv,2;17,12;13,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidylinositol
+PI_NH4_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+NH4]+,Phosphatidylinositol
+PlasmanylLPC_H.csv,2;6,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmanyl lysophosphatidylcholine
+PlasmanylLPC_neg_C2H3O2.csv,3,,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Plasmanyl lysophosphatidylcholine
+PlasmanylLPC_neg_CHO2.csv,3,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Plasmanyl lysophosphatidylcholine
+PlasmanylLPE_H.csv,3,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmanyl lysophosphatidylethanolamine
+PlasmanylLPE_neg_minH.csv,2;6,,TRUE,TRUE,FALSE,Neg,[M-H]-,Plasmanyl lysophosphatidylethanolamine
+PlasmanylPC_H.csv,2;11,4;6,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmanyl phosphatidylcholine
+PlasmanylPC_H_Class.csv,4,,FALSE,FALSE,TRUE,Pos,[M+H]+,Plasmanyl phosphatidylcholine
+PlasmanylPC_neg_C2H3O2.csv,3;9,,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Plasmanyl phosphatidylcholine
+PlasmanylPC_neg_CHO2.csv,3;9,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Plasmanyl phosphatidylcholine
+PlasmanylPE_H.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmanyl phosphatidylethanolamine
+PlasmanylPE_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Plasmanyl phosphatidylethanolamine
+PlasmanylPE_neg_minH.csv,2;5,,TRUE,TRUE,FALSE,Neg,[M-H]-,Plasmanyl phosphatidylethanolamine
+PlasmanylPS_H.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmanyl phosphatidylserine
+PlasmanylPS_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Plasmanyl phosphatidylserine
+PlasmanylPS_neg_minH.csv,6;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,Plasmanyl phosphatidylserine
+PlasmanylTG_NH4.csv,3;4,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,Plasmanyl triacylglycerol
+PlasmanylTG_reduced_NH4.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Plasmanyl triacylglycerol: Reduced to only NL of RCOOH to speed up LipidMatch
+PlasmenylLPC_H.csv,3,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmenyl lysophosphatidylcholine
+PlasmenylLPC_neg_C2H3O2.csv,3,,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Plasmenyl lysophosphatidylcholine
+PlasmenylLPC_neg_CHO2.csv,3,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Plasmenyl lysophosphatidylcholine
+PlasmenylLPE_H.csv,3,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmenyl lysophosphatidylethanolamine
+PlasmenylLPE_neg_minH.csv,2;4,,TRUE,TRUE,FALSE,Neg,[M-H]-,Plasmenyl lysophosphatidylethanolamine
+PlasmenylPC_H.csv,2;11,4;6,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmenyl phosphatidylcholine
+PlasmenylPC_H_Class.csv,4,,FALSE,FALSE,TRUE,Pos,[M+H]+,Plasmenyl phosphatidylcholine
+PlasmenylPC_neg_C2H3O2.csv,3;9,,FALSE,TRUE,FALSE,Neg,[M+C2H3O2]-,Plasmenyl phosphatidylcholine
+PlasmenylPC_neg_CHO2.csv,3;9,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Plasmenyl phosphatidylcholine
+PlasmenylPE_H.csv,3;6,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmenyl phosphatidylethanolamine
+PlasmenylPE_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Plasmenyl phosphatidylethanolamine
+PlasmenylPE_neg_minH.csv,3;5,,TRUE,TRUE,FALSE,Neg,[M-H]-,Plasmenyl phosphatidylethanolamine
+PlasmenylPS_H.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+H]+,Plasmenyl phosphatidylserine
+PlasmenylPS_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Plasmenyl phosphatidylserine
+PlasmenylPS_neg_minH.csv,6,,TRUE,FALSE,FALSE,Neg,[M-H]-,Plasmenyl phosphatidylserine
+PlasmenylTG_NH4.csv,3;4,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,Plasmenyl triacylglycerol
+PlasmenylTG_red_NH4.csv,3;4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Plasmenyl triacylglycerol: Reduced to only NL of RCOOH to speed up LipidMatch
+PS_H.csv,3,4;5,TRUE,TRUE,FALSE,Pos,[M+H]+,Phosphatidylserine
+PS_H_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Phosphatidylserine
+PS_Na.csv,9,7;8,TRUE,TRUE,FALSE,Pos,[M+Na]+,Phosphatidylserine
+PS_Na_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+Na]+,Phosphatidylserine
+PS_neg_minH.csv,6;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidylserine
+PS_neg_minH_Class.csv,3,,TRUE,FALSE,TRUE,Neg,[M-H]-,Phosphatidylserine
+SM_H.csv,2;7;9,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sphingomyelin
+SM_H_Class.csv,7,,FALSE,FALSE,TRUE,Pos,[M+H]+,Sphingomyelin
+SM_neg_HCO2.csv,3;4;5,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Sphingomyelin
+SM_neg_HCO2_Class.csv,3;4,,TRUE,FALSE,TRUE,Neg,[M+HCO2]-,Sphingomyelin
+So_H.csv,4;5,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sphingosine
+SQDG_neg_minH.csv,2;5,3;4,TRUE,TRUE,FALSE,Neg,[M-H]-,Sulfoquinovosyldiacylglycerol
+Sulf_H.csv,3;10,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sulfatide
+Sulf_neg_minH.csv,2;7,4;5,TRUE,TRUE,FALSE,Neg,[M-H]-,Sulfatide
+Sulf_neg_minH_Class.csv,4,,TRUE,FALSE,TRUE,Neg,[M-H]-,Sulfatide
+TG_Na.csv,2;3;4;5,,TRUE,TRUE,FALSE,Pos,[M+Na]+,triacylglyceride or triacylglycerol: Will add significant time to analysis with minimal new information
+TG_NH4.csv,3;4;5,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,triacylglyceride or triacylglycerol
+TG_reduced_NH4.csv,3;4;5,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,triacylglyceride or triacylglycerol: Reduced fragment search to only NL of RCOOH to speed up LipidMatch
+zymosteryl_NH4.csv,4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,zymosteryl
