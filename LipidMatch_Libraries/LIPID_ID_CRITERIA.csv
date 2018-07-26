@@ -21,7 +21,7 @@ DGDG_NH4.csv,3,5;6,TRUE,FALSE,FALSE,Pos,[M+NH4]+,Digalactosyldiacylglycerol
 DGDG_NH4_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+NH4]+,Digalactosyldiacylglycerol
 DGTS_H.csv,3;6;7,,TRUE,FALSE,FALSE,Pos,[M+H]+,Diacylglyceryltrimethylhomo-Ser
 DMPE_neg_minH.csv,3;4,,TRUE,FALSE,FALSE,Neg,[M-H]-,Dimethyl Phosphatidylethanolamine
-Ganglioside_neg_minH.csv,2;4,,TRUE,TRUE,FALSE,Neg,[M-H]-,Ganglioside or glycan ceramides
+Ganglioside_neg_minH_Class.csv,2;6,,TRUE,TRUE,TRUE,Neg,[M-H]-,Ganglioside or glycan ceramides
 GlcADG_neg_minH.csv,9;10,,FALSE,FALSE,FALSE,Neg,[M-H]-,Glucuronosyldiacylglycerol 
 GlcADG_NH4.csv,5;6,,FALSE,FALSE,FALSE,Pos,[M+NH4]+,Glucuronosyldiacylglycerol 
 lanosteryl_NH4.csv,4,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,lanosteryl
@@ -123,8 +123,8 @@ PS_Na.csv,9,7;8,TRUE,TRUE,FALSE,Pos,[M+Na]+,Phosphatidylserine
 PS_Na_Class.csv,3,,TRUE,FALSE,TRUE,Pos,[M+Na]+,Phosphatidylserine
 PS_neg_minH.csv,6;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,Phosphatidylserine
 PS_neg_minH_Class.csv,3,,TRUE,FALSE,TRUE,Neg,[M-H]-,Phosphatidylserine
-SM_H.csv,2;7;9,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sphingomyelin
-SM_H_Class.csv,7,,FALSE,FALSE,TRUE,Pos,[M+H]+,Sphingomyelin
+SM_H.csv,2;6;8,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sphingomyelin
+SM_H_Class.csv,6,,FALSE,FALSE,TRUE,Pos,[M+H]+,Sphingomyelin
 SM_neg_HCO2.csv,3;4;5,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Sphingomyelin
 SM_neg_HCO2_Class.csv,3;4,,TRUE,FALSE,TRUE,Neg,[M+HCO2]-,Sphingomyelin
 So_H.csv,4;5,,TRUE,TRUE,FALSE,Pos,[M+H]+,Sphingosine
@@ -156,8 +156,8 @@ OxPI_neg_minH_MSDIAL.csv,2;3;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,oxidized phosphatidyl
 OxPS_neg_minH_MSDIAL.csv,3;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,oxidized phosphatidylserine
 SQDG_NH4.csv,7;8,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Sulfoquinovosyl diacylglycerol 
 SM_neg_C2H3O2.csv,3;4;5,,FALSE,FALSE,FALSE,Neg,[M+C2H3O2]-,Sphingomyelin
-Cer_H.csv,3;6,,TRUE,TRUE,FALSE,Pos,[M+H]+,Ceramide
-Cer_neg_HCO2.csv,3;5,,TRUE,TRUE,FALSE,Neg,[M+HCO2]-,Ceramide
+Cer_H.csv,3;6,,FALSE,FALSE,FALSE,Pos,[M+H]+,Ceramide
+Cer_neg_HCO2.csv,3;5,,FALSE,FALSE,FALSE,Neg,[M+HCO2]-,Ceramide
 Cer_ADS_neg_C2H3O2.csv,3;14,,FALSE,FALSE,FALSE,Neg,[M+C2H3O2]-,Backbone: Dihydrosphingosine Fatty acid: a-hydroxy fatty acid
 Cer_AP_neg_C2H3O2.csv,3;5,,FALSE,FALSE,FALSE,Neg,[M+C2H3O2]-,Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
 Cer_AS_neg_C2H3O2.csv,3,7;15,FALSE,FALSE,FALSE,Neg,[M+C2H3O2]-,Backbone: Sphingosine Fatty acid: a-hydroxy fatty acid
@@ -201,8 +201,19 @@ Cer_NS_neg_minH.csv,2;7,,TRUE,TRUE,FALSE,Neg,[M-H]-,"Ceramide (Nonhydroxyacyl sp
 GlcCer_AP_neg_minH.csv,2;4,,TRUE,TRUE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Phytosphingosine Fatty acid: a-hydroxy fatty acid
 GlcCer_NDS_neg_minH.csv,2;3;5,,TRUE,TRUE,FALSE,Neg,[M-H]-,glucosyl-ceramide Backbone: Dihydrosphingosine Fatty acid: non-hydroxy fatty acid
 GlcCer_NS_neg_minH.csv,2;3,4;5;6,TRUE,TRUE,FALSE,Neg,[M-H]-,Glucosyl-Nonhydroxyacyl sphingosine
-DGDG_neg_HCO2_Class.csv,5,,TRUE,FALSE,FALSE,Neg,[M+HCO2]-,Digalactosyldiacylglycerol
-DGTS_H_Class.csv,2;3,,TRUE,FALSE,FALSE,Pos,[M+H]+,Diacylglyceryltrimethylhomo-Ser
-SQDG_neg_minH_Class.csv,2;3,,TRUE,TRUE,FALSE,Neg,[M-H]-,Sulfoquinovosyldiacylglycerol
-DGDG_neg_C2H3O2_Class.csv,5,,FALSE,FALSE,FALSE,Neg,[M+C2H3O2]-,Digalactosyldiacylglycerol
+DGDG_neg_HCO2_Class.csv,5,,TRUE,FALSE,TRUE,Neg,[M+HCO2]-,Digalactosyldiacylglycerol
+DGTS_H_Class.csv,2;3,,TRUE,FALSE,TRUE,Pos,[M+H]+,Diacylglyceryltrimethylhomo-Ser
+SQDG_neg_minH_Class.csv,2;3,,TRUE,TRUE,TRUE,Neg,[M-H]-,Sulfoquinovosyldiacylglycerol
+DGDG_neg_C2H3O2_Class.csv,5,,FALSE,FALSE,TRUE,Neg,[M+C2H3O2]-,Digalactosyldiacylglycerol
 Cholesterol_NH4.csv,3,,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Cholesterol
+GM3_NH4.csv,4;10,12;13,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Ganglioside GM3
+GM3_neg_minH_Class.csv,2;4,,TRUE,TRUE,TRUE,Pos,[M-H]-,Ganglioside GM3
+SHexCer_neg_minH_Class.csv,2;3,,FALSE,FALSE,TRUE,Pos,[M-H]-,Sulfatide
+SHexCer_H.csv,4;10,,FALSE,FALSE,FALSE,Pos,[M+H]+,Sulfatide
+PMeOH_neg_minH.csv,5;6,,TRUE,TRUE,FALSE,Pos,[M-H]-,Phosphatidylmethanol
+PEtOH_NH4.csv,3,8;9,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Phosphatidylethanol
+PMeOH_NH4.csv,3,8;9,TRUE,TRUE,FALSE,Pos,[M+NH4]+,Phosphatidylmethanol
+PEtOH_neg_minH.csv,5;6,,TRUE,TRUE,FALSE,Pos,[M-H]-,Phosphatidylethanol
+GM3_NH4_Class.csv,4;10,,TRUE,TRUE,TRUE,Pos,[M+NH4]+,Ganglioside GM3
+PEtOH_NH4_Class.csv,3,,TRUE,TRUE,TRUE,Pos,[M+NH4]+,Phosphatidylethanol
+PMeOH_NH4_Class.csv,3,,TRUE,TRUE,TRUE,Pos,[M+NH4]+,Phosphatidylmethanol
