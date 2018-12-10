@@ -51,8 +51,6 @@ ManuallyInputVariables <- FALSE
 
 
 #Checks for updates, installs packagaes: "installr" "stringr" "sqldf" "gWidgets" "gWidgetstcltk" and "compiler"
-# Rico: I'am on linux this will not work
-# Rico: Why is this one necessary?
 # if(!require(installr)) {
 #   install.packages("installr"); install.packages("stringr"); require(installr)}
 # library(installr)
@@ -84,7 +82,7 @@ errorBox <- function(message) {
   return()
 }
 
-# Rico: added this function for Linux compatibility
+# added this function for Linux compatibility
 choose_directory = function(caption = 'Select data directory') {
   if (exists('utils::choose.dir')) {
     choose.dir(caption = caption) 
@@ -181,14 +179,13 @@ parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.
   ####################### Pop-up boxes input VARIABLES SECTION ###############################
   
   # check if R version is equal to, or between, version 2.0.3 and 3.3.3, otherwise present pop-up box warning 
-  # Rico: just trying something
+  # Comment for now
   # if(!((as.numeric(paste(version$major,version$minor,sep=""))>=20.3) && (as.numeric(paste(version$major,version$minor,sep=""))<=33.3))) {
   #   errorBox(message=paste("ERROR: R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
   #   stop(paste("R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
   # }
   
   ## Input Directory that holds each folder of .ms2 files & feature table (contains features, peak heights/areas, etc.) (.csv file)
-  # Rico: Try to make linux compatible
   InputDirectory<-choose_directory(caption="Input Directory of MS2 + Feature Tables")
   if(is.na(InputDirectory)){
     stop()
@@ -205,7 +202,6 @@ parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.
   }
   
   ## Input Directory for Libraries
-  # Rico: Try to make linux compatible
   InputLibrary<-choose_directory(caption="Input Directory of libraries (came with LipidMatch)")
   if(is.na(InputLibrary)){
     stop()
@@ -328,7 +324,6 @@ if(ManuallyInputVariables==TRUE || csvInput == TRUE){
 
 #Library Information
 # NAME AND DIRECTORY for exact mass library
-# Rico: try to make linux compatible
 ImportLibPOS<-file.path(InputLibrary, "Precursor_Library_POS.csv")
 ImportLibNEG<-file.path(InputLibrary, "Precursor_Library_NEG.csv")
 LibCriteria<- file.path(InputLibrary, "LIPID_ID_CRITERIA.csv")
