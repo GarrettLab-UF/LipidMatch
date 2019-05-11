@@ -51,14 +51,13 @@ ManuallyInputVariables <- FALSE
 
 
 #Checks for updates, installs packagaes: "installr" "stringr" "sqldf" "gWidgets" "gWidgetstcltk" and "compiler"
-# if(!require(installr)) {
-#   install.packages("installr"); install.packages("stringr"); require(installr)}
-# library(installr)
-
-if("sqldf" %in% rownames(installed.packages()) == FALSE) {install.packages("sqldf")}
+#if(!require(installr)) {
+#  install.packages("installr",  repos = c(CRAN = "http://cran.rstudio.com")); install.packages("stringr", repos = c(CRAN = "http://cran.rstudio.com")); require(installr)}
+#library(installr)
+if("sqldf" %in% rownames(installed.packages()) == FALSE) {install.packages("sqldf",  repos = c(CRAN = "http://cran.rstudio.com"))}
 # if("compiler" %in% rownames(installed.packages()) == FALSE) {install.packages("compiler")}
-if("gWidgets" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgets")}
-if("gWidgetstcltk" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgetstcltk")}
+if("gWidgets" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgets",  repos = c(CRAN = "http://cran.rstudio.com"))}
+if("gWidgetstcltk" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgetstcltk",  repos = c(CRAN = "http://cran.rstudio.com"))}
 require(gWidgets)
 require(gWidgetstcltk)
 options(guiToolkit="tcltk") 
@@ -80,15 +79,6 @@ errorBox <- function(message) {
   addSpring(button.group)
   gbutton("ok", handler=function(h,...) dispose(window), container=button.group)
   return()
-}
-
-# added this function for Linux compatibility
-choose_directory = function(caption = 'Select data directory') {
-  if (exists('utils::choose.dir')) {
-    choose.dir(caption = caption) 
-  } else {
-    tk_choose.dir(caption = caption)
-  }
 }
 
 if (ManuallyInputVariables==TRUE){
@@ -124,10 +114,10 @@ if (ManuallyInputVariables==TRUE){
   minNumberOfAIFScans <- 5
   
   # Input Directory for Feature Table and MS2 files ...must have \\ (double backslash) at the end of the directory
-  InputDirectory<-"/home/rjederks/Documents/Projects/LipidMatch/ExampleData"
+  InputDirectory<-"C:\\Users\\Nick Kroeger\\Code\\R\\Jeremy\\AIFEnhanced\\TestRuns\\Shrimp\\"
   
   # Input Directory for Libraries ...must have \\ (double backslash) at the end of the directory
-  InputLibrary<-"/home/rjederks/Documents/Projects/LipidMatch/LipidMatch_Libraries"
+  InputLibrary<-"C:\\Users\\Nick Kroeger\\Code\\R\\Jeremy\\LibrariesReducedAdducts\\"
   
   #Check your parameters and see that they are all correct.
   #Then press ctrl+shift+s to execute all code.
@@ -136,7 +126,7 @@ if (ManuallyInputVariables==TRUE){
 }else if(csvInput == TRUE){
   ####################### Get input from csv VARIABLES SECTION ###############################
   #parametersDirectory
-parametersDir <- "C:/Users/Jeremy/Desktop/Desktop/Instrumentation/Software/MSms/LipidMatch_Workflow/LipidMatch_Flow_Versions/LipidMatch_Flow_Portable/LipidMatch_Flow/LipidMatch_Distribution/"
+parametersDir <- "C:/Users/Jeremy/Desktop/LipidMatch_Flow-0.0.2/LipidMatch_Flow-0.0.2/LipidMatch_Flow/LipidMatch_Distribution/"
 parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.csv", sep="")
   parametersInput_csv <- read.csv(parametersFile, sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE)
   parametersInput_csv <- as.matrix(parametersInput_csv)
@@ -179,18 +169,16 @@ parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.
   ####################### Pop-up boxes input VARIABLES SECTION ###############################
   
   # check if R version is equal to, or between, version 2.0.3 and 3.3.3, otherwise present pop-up box warning 
-  # Comment for now
-  # if(!((as.numeric(paste(version$major,version$minor,sep=""))>=20.3) && (as.numeric(paste(version$major,version$minor,sep=""))<=33.3))) {
-  #   errorBox(message=paste("ERROR: R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
-  #   stop(paste("R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
-  # }
+  if(!((as.numeric(paste(version$major,version$minor,sep=""))>=20.3) && (as.numeric(paste(version$major,version$minor,sep=""))<=33.3))) {
+    errorBox(message=paste("ERROR: R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
+    stop(paste("R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
+  }
   
   ## Input Directory that holds each folder of .ms2 files & feature table (contains features, peak heights/areas, etc.) (.csv file)
-  InputDirectory<-choose_directory(caption="Input Directory of MS2 + Feature Tables")
-  if(is.na(InputDirectory)){
+  InputDirectory<-paste(choose.dir(caption="Input Directory of MS2 + Feature Tables"),"\\",sep="")
+  if(InputDirectory=="NA\\"){
     stop()
   }
-  ###
   foldersToRun <- list.dirs(path=InputDirectory, full.names=FALSE, recursive=FALSE)
   ErrorOutput<-0
   for (i in seq_len(length(foldersToRun))){
@@ -202,11 +190,11 @@ parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.
   }
   
   ## Input Directory for Libraries
-  InputLibrary<-choose_directory(caption="Input Directory of libraries (came with LipidMatch)")
-  if(is.na(InputLibrary)){
+  InputLibrary<-paste(choose.dir(caption="Input Directory of libraries (came with LipidMatch)"),"\\",sep="")
+  if(InputLibrary=="NA\\"){
     stop()
   }
-  ###
+  
   GetInputAndErrorHandle <- function(typeOfVariable, message, title){
     isValidInput <- FALSE
     inputVariable <- ginput(message=message, title=title,icon="question")
@@ -324,9 +312,9 @@ if(ManuallyInputVariables==TRUE || csvInput == TRUE){
 
 #Library Information
 # NAME AND DIRECTORY for exact mass library
-ImportLibPOS<-file.path(InputLibrary, "Precursor_Library_POS.csv")
-ImportLibNEG<-file.path(InputLibrary, "Precursor_Library_NEG.csv")
-LibCriteria<- file.path(InputLibrary, "LIPID_ID_CRITERIA.csv")
+ImportLibPOS<-paste(InputLibrary, "Precursor_Library_POS.csv", sep="")
+ImportLibNEG<-paste(InputLibrary, "Precursor_Library_NEG.csv", sep="")
+LibCriteria<- paste(InputLibrary, "LIPID_ID_CRITERIA.csv", sep="")
 LibColInfo<-1  #Look at your Library. What column are your IDs? (Columns to retrieve ID information and align with data)
 ParentMZcol_in<-2 #Look at your Library. What column are your precursor masses in? (Columns to retrieve ID information and align with data)
 ddMS2_Code<-"1"
@@ -343,12 +331,12 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
   tStart<-Sys.time()
   ColCorrOR <- ConfirmORcol
   ColCorrAND <- ConfirmANDcol
-
-  if(!dir.exists(file.path(OutputDirectory,"Confirmed_Lipids"))){
-    dir.create(file.path(OutputDirectory,"Confirmed_Lipids"))
+  
+  if(!dir.exists(paste(OutputDirectory,"//Confirmed_Lipids",sep=""))){
+    dir.create(paste(OutputDirectory,"//Confirmed_Lipids",sep=""))
   }
-  if(!dir.exists(file.path(OutputDirectory,"Additional_Files"))){
-    dir.create(file.path(OutputDirectory,"Additional_Files"))
+  if(!dir.exists(paste(OutputDirectory,"//Additional_Files",sep=""))){
+    dir.create(paste(OutputDirectory,"//Additional_Files",sep=""))
   }
   
   LibraryLipid<-read.csv(LibraryLipid_self, sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE)
@@ -363,8 +351,6 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
   sqlMerged <- sqldf(paste("select * from LibraryLipid lib inner join FeatureList iList on lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "-", PrecursorMassAccuracy, "<= iList.", colnames(FeatureList)[FeatureListMZColumn], " and iList.", colnames(FeatureList)[FeatureListMZColumn], " <= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "+", PrecursorMassAccuracy, sep = ""))
   # sqlMerged <- sqldf(paste("select * from LibraryLipid lib inner join FeatureList iList on iList.", colnames(FeatureList)[FeatureListMZColumn], " >= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], " -.005 and iList.", colnames(FeatureList)[FeatureListMZColumn], " <= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "+ .005", sep = ""))
   NewLibraryLipid <- as.matrix(sqlMerged)
-  # if sqlMerged is not empty the names of the columns need to be adjusted, maybe better to always adjust them
-  colnames(NewLibraryLipid) <- colnames(NewLibraryLipidHeader)
   NewLibraryLipid <- rbind(NewLibraryLipidHeader,NewLibraryLipid)
   NewLibraryLipid <- NewLibraryLipid[,-(ncol(LibraryLipid)+1)] #removes mz from Feature list
   
@@ -387,7 +373,7 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
   LibParentHits_df <- NewLibraryLipid #name change
   nrowLibParentHits <- nrow(LibParentHits_df)
   ncolLibParentHits <- ncol(LibParentHits_df)
-  NoMatches_dir<-file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_NoIDs.csv"))
+  NoMatches_dir<-paste(OutputDirectory,"Additional_Files//", ExtraFileNameInfo,"_NoIDs.csv",sep="")
   if(nrowLibParentHits == 0){#No hits between Feature List and Library
     write.table("No Matches Found between Library and Feature List", NoMatches_dir, col.names=FALSE, row.names=FALSE, quote=FALSE)
   }else{#If there was at least one match between Feature List and the Library
@@ -539,7 +525,7 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
     ## Reduce the data set to those values which are TRUE for both the OR and AND fragments calculated in the two IF statements above
     DataCombinedConfirmed<-DataCombined[(OR_BinTruth+AND_BinTruth)>1,,drop=FALSE]
     
-    NoMatches_dir<-file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_NoIDs.csv"))
+    NoMatches_dir<-paste(OutputDirectory,"Additional_Files//", ExtraFileNameInfo,"_NoIDs.csv",sep="")
     if(nrow(DataCombinedConfirmed)==0){
       write.table("No Confirmed Lipids Found",NoMatches_dir, col.names=FALSE, row.names=FALSE, quote=FALSE)
     }else{
@@ -704,7 +690,7 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
       colnames(DataCombinedConfirmed_df)[ncolLibParentHits*5+6 + numColsForAIF + 1] <- "Slope, Precursor Intensity vs Fragment Intensity (AIF)"
       colnames(DataCombinedConfirmed_df)[ncolLibParentHits*5+6 + numColsForAIF*2 + 2] <- "Theoretical, Library Parent Hits"
       
-      ConfirmedReduced_dir <- file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_AdjR2Info.csv"))
+      ConfirmedReduced_dir <- paste(OutputDirectory,"Additional_Files//",ExtraFileNameInfo,"_AdjR2Info.csv",sep="")
       write.table(DataCombinedConfirmed_df, ConfirmedReduced_dir, sep=",",col.names=TRUE, row.names=FALSE, quote=TRUE, na="NA")
       
       #Reduce matches based on ConfirmAndCol
@@ -760,7 +746,7 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
       rowsToKeep <- as.numeric(row.names(AdjR2_df)) #used to reduce final output table based on the reduced AdjR2_df rows from above ConfirmAND and ConfirmOR columns
       DataCombinedConfirmed_df <- DataCombinedConfirmed_df[rowsToKeep,]
       
-      ConfirmedReduced_dir <- file.path(OutputDirectory,"Confirmed_Lipids", paste0(ExtraFileNameInfo,"_IDed.csv"))
+      ConfirmedReduced_dir <- paste(OutputDirectory,"Confirmed_Lipids//",ExtraFileNameInfo,"_IDed.csv",sep="")
       if(nrow(DataCombinedConfirmed_df)>0){#don't output if there's nothing in the reduced file
         write.table(DataCombinedConfirmed_df, ConfirmedReduced_dir, sep=",",col.names=TRUE, row.names=FALSE, quote=TRUE, na="NA")
       }
@@ -773,18 +759,18 @@ RunAIF <- function(ms1_df, ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, 
     RunInfo<-matrix("",24,2)
     RunInfo[,1]<-c("Parameters Used","","Run Time","Computation Started:","Computation Ended:","Elapsed Time (largest time unit)","","Files","MS2 file name and Directory:","MS1 file name and Directory","Feature Table name and directory:","Library name and directory:","","MS/MS confirmation criteria","Library columns for confirmation (AND)","Library columns for confirmation (OR)","m/z ppm window:","RT window (min):","minimum scans:","minimum intensity:", "","AIF confirmation criteria","Minimum adjusted R2 value","Minimum scans:")
     RunInfo[,2]<-c("Values","","",as.character(tStart),as.character(tEnd),tEnd-tStart,"","",OutputInfo[1],OutputInfo[4],OutputInfo[3],LibraryLipid_self,"","",paste(ConfirmANDcol,collapse=","),paste(ConfirmORcol,collapse=","),ppm_Window,RT_Window,minNumberOfAIFScans,intensityCutOff,"","",corrMin,minNumberOfAIFScans)
-    Info_dir<-file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_Parameters.csv"))
+    Info_dir<-paste(OutputDirectory,"Additional_Files//",ExtraFileNameInfo,"_Parameters.csv",sep="")
     write.table(RunInfo, Info_dir, sep=",",col.names=FALSE, row.names=FALSE, quote=TRUE, na="NA")
   }
 }#end RunAIF
 
 #Function for MS/MS ID
 RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, OutputDirectory, ExtraFileNameInfo, ConfirmORcol, ConfirmANDcol, OutputInfo){
-  if(!dir.exists(file.path(OutputDirectory,"Confirmed_Lipids"))){
-    dir.create(file.path(OutputDirectory,"Confirmed_Lipids"))
+  if(!dir.exists(paste(OutputDirectory,"//Confirmed_Lipids",sep=""))){
+    dir.create(paste(OutputDirectory,"//Confirmed_Lipids",sep=""))
   }
-  if(!dir.exists(file.path(OutputDirectory,"Additional_Files"))){
-    dir.create(file.path(OutputDirectory,"Additional_Files"))
+  if(!dir.exists(paste(OutputDirectory,"//Additional_Files",sep=""))){
+    dir.create(paste(OutputDirectory,"//Additional_Files",sep=""))
   }
   #store starting time
   tStart<-Sys.time()
@@ -801,9 +787,6 @@ RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, Out
   sqlMerged <- sqldf(paste("select * from LibraryLipid lib inner join FeatureList iList on lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "-", PrecursorMassAccuracy, "<= iList.", colnames(FeatureList)[FeatureListMZColumn], " and iList.", colnames(FeatureList)[FeatureListMZColumn], " <= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "+", PrecursorMassAccuracy, sep = ""))
   # sqlMerged <- sqldf(paste("select * from LibraryLipid lib inner join FeatureList iList on iList.", colnames(FeatureList)[FeatureListMZColumn], " >= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], " -.005 and iList.", colnames(FeatureList)[FeatureListMZColumn], " <= lib.", colnames(LibraryLipid)[libraryLipidMZColumn], "+ .005", sep = ""))
   NewLibraryLipid <- as.matrix(sqlMerged)
-  # if sqlMerged is not empty the names of the columns need to be adjusted, maybe better to always adjust them
-  colnames(NewLibraryLipid) <- colnames(NewLibraryLipidHeader)
-  
   NewLibraryLipid <- rbind(NewLibraryLipidHeader,NewLibraryLipid)
   NewLibraryLipid <- NewLibraryLipid[,-(ncol(LibraryLipid)+1)] #removes mz from Feature list
   
@@ -826,7 +809,7 @@ RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, Out
   LibParentHits_df <- NewLibraryLipid #name change
   nrowLibParentHits <- nrow(LibParentHits_df)
   ncolLibParentHits <- ncol(LibParentHits_df)
-  NoMatches_dir<-file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_NoIDs.csv"))
+  NoMatches_dir<-paste(OutputDirectory,"Additional_Files//", ExtraFileNameInfo,"_NoIDs.csv",sep="")
   if(nrowLibParentHits == 0){#No hits between Feature List and Library
     write.table("No Matches Found between Library and Feature List", NoMatches_dir, col.names=FALSE, row.names=FALSE, quote=FALSE)
   }else{#If there was at least one match between Feature List and the Library
@@ -956,7 +939,7 @@ RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, Out
     colnames(AllConfirmed_df)[ncolLibParentHits*4+5] <- "Average m/z"
     colnames(AllConfirmed_df)[ncolLibParentHits*5+6] <- "Theoretical, Library Parent Hits"
     
-    ConfirmedAll_dir<-file.path(OutputDirectory,"Additional_Files", paste0(ExtraFileNameInfo,"_All.csv"))
+    ConfirmedAll_dir<-paste(OutputDirectory,"Additional_Files//", ExtraFileNameInfo,"_All.csv",sep="")
     write.table(AllConfirmed_df, ConfirmedAll_dir, sep=",", col.names=TRUE, row.names=FALSE, quote=TRUE, na="NA")
     
     ## Code to reduce the dataset to lipids containing necessary fragments 
@@ -981,11 +964,11 @@ RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, Out
     ## Reduce the data set to those values which are TRUE for both the OR and AND fragments calculated in the two IF statements above
     DataCombinedConfirmed<-DataCombined[(OR_BinTruth+AND_BinTruth)>1,,drop=FALSE]
     
-    NoMatches_dir<-file.path(OutputDirectory,"Additional_Files",paste0(ExtraFileNameInfo,"_NoID.csv"))
+    NoMatches_dir<-paste(OutputDirectory,"Additional_Files//", ExtraFileNameInfo,"_NoID.csv",sep="")
     if(nrow(DataCombinedConfirmed)==0){
       write.table("No Confirmed Lipids Found",NoMatches_dir, col.names=FALSE, row.names=FALSE, quote=FALSE)
     }else{
-      ConfirmedReduced_dir <- file.path(OutputDirectory,"Confirmed_Lipids",paste0(ExtraFileNameInfo,"_IDed.csv"))
+      ConfirmedReduced_dir <- paste(OutputDirectory,"Confirmed_Lipids//",ExtraFileNameInfo,"_IDed.csv",sep="")
       write.table(DataCombinedConfirmed, ConfirmedReduced_dir, sep=",",col.names=TRUE, row.names=FALSE, quote=TRUE, na="NA")
     }
   }
@@ -994,7 +977,7 @@ RunTargeted <- function(ms2_df, FeatureList, LibraryLipid_self, ParentMZcol, Out
   RunInfo<-matrix("",19,2)
   RunInfo[,1]<-c("Parameters Used","","Run Time","Computation Started:","Computation Ended:","Elapsed Time (largest time unit)","","Files","MS2 file name and Directory:","Feature Table name and directory:","Library name and directory:","","MS/MS confirmation criteria","Library columns for confirmation (AND)","Library columns for confirmation (OR)","m/z ppm window:","RT window (min):","minimum scans:","minimum intensity:")
   RunInfo[,2]<-c("Values","","",as.character(tStart),as.character(tEnd),tEnd-tStart,"","",OutputInfo[1],OutputInfo[3],LibraryLipid_self,"","",paste(ConfirmANDcol,collapse=","),paste(ConfirmORcol,collapse=","),ppm_Window,RT_Window,ScanCutOff,intensityCutOff)
-  Info_dir<-file.path(OutputDirectory,"Additional_Files",paste0(ExtraFileNameInfo,"_Parameters.csv"))
+  Info_dir<-paste(OutputDirectory,"Additional_Files//",ExtraFileNameInfo,"_Parameters.csv",sep="")
   write.table(RunInfo, Info_dir, sep=",",col.names=FALSE, row.names=FALSE, quote=TRUE, na="NA")
 }#end of function
 
@@ -1192,7 +1175,7 @@ CreateIDs <- function(PeakTableDirectory, ddMS2directory, Classdirectory, AIFdir
     if(RunTF==TRUE & length(Files) > 0){
       for(i in seq_len(length(Files))){
         #Read in reduced_confirmed file
-        TempFile <- read.csv(file.path(Directory,Files[i]),sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE)
+        TempFile <- read.csv(paste(Directory,Files[i],sep=""),sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE)
         if(nrow(TempFile)>1){ #safety net to check if there are more rows than just the header
           CommentCol <- which(TempFile[1,]=="Comment")[1]#receive first comment column
           #get Max Intensity dataframe portion from All_Confirmed (AIF all_confirmed files have specific header)
@@ -1324,7 +1307,7 @@ for(i in seq_len(lengthFoldersToRun)){
     fpath <- InputDirectory
     print(paste("Warning: Remove your 'Output' folder from the current Input Directory:", InputDirectory))
   }else{
-    fpath <- file.path(InputDirectory, foldersToRun[i])
+    fpath <- paste(InputDirectory, foldersToRun[i], "\\", sep="")
   }
   fileName <- basename(fpath)
   
@@ -1421,72 +1404,72 @@ for(i in seq_len(lengthFoldersToRun)){
   #------Confirmed_Lipids
   
   if(length(foldersToRun)==0){#1 root folder
-    OutputDirectory<-file.path(InputDirectory, "Output")
+    OutputDirectory<-paste(InputDirectory, "Output\\", sep="")
     if(!dir.exists(OutputDirectory)){ dir.create(OutputDirectory) }
     if(runPosAIF || runNegAIF){#AIF
-      OutputDirectoryAIF <- file.path(InputDirectory, "Output", "AIF")    
+      OutputDirectoryAIF <- paste(InputDirectory, "Output\\AIF\\", sep="")    
       if(!dir.exists(OutputDirectoryAIF)){  dir.create(OutputDirectoryAIF)  }
       if(runPosAIF){#pos AIF
-        OutputDirectoryAIFPos_in <- file.path(OutputDirectoryAIF,"Pos")
+        OutputDirectoryAIFPos_in <- paste(OutputDirectoryAIF,"Pos\\",sep="")
         if(!dir.exists(OutputDirectoryAIFPos_in)){ dir.create(OutputDirectoryAIFPos_in) }
       }
       if(runNegAIF){#neg AIF
-        OutputDirectoryAIFNeg_in <- file.path(OutputDirectoryAIF,"Neg")
+        OutputDirectoryAIFNeg_in <- paste(OutputDirectoryAIF,"Neg\\",sep="")
         if(!dir.exists(OutputDirectoryAIFNeg_in)){ dir.create(OutputDirectoryAIFNeg_in) }
       }
     }
     if(runPosddMS || runNegddMS){#ddMS
-      OutputDirectoryddMS <- file.path(InputDirectory, "Output", "ddMS")    
+      OutputDirectoryddMS <- paste(InputDirectory, "Output\\ddMS\\", sep="")    
       if(!dir.exists(OutputDirectoryddMS)){ dir.create(OutputDirectoryddMS) }
       if(runPosddMS){#pos ddMS
-        OutputDirectoryddMSPos_in <- file.path(OutputDirectoryddMS,"Pos")
+        OutputDirectoryddMSPos_in <- paste(OutputDirectoryddMS,"Pos\\",sep="")
         if(!dir.exists(OutputDirectoryddMSPos_in)){ dir.create(OutputDirectoryddMSPos_in) }
       }
       if(runPosddMS){#posByClass ddMS
-        OutputDirectoryddMSPosByClass_in <- file.path(OutputDirectoryddMS,"PosByClass")
+        OutputDirectoryddMSPosByClass_in <- paste(OutputDirectoryddMS,"PosByClass\\",sep="")
         if(!dir.exists(OutputDirectoryddMSPosByClass_in)){ dir.create(OutputDirectoryddMSPosByClass_in) }
       }
       if(runNegddMS){#negByClass ddMS
-        OutputDirectoryddMSNegByClass_in <- file.path(OutputDirectoryddMS,"NegByClass")
+        OutputDirectoryddMSNegByClass_in <- paste(OutputDirectoryddMS,"NegByClass\\",sep="")
         if(!dir.exists(OutputDirectoryddMSNegByClass_in)){ dir.create(OutputDirectoryddMSNegByClass_in) }
       }
       if(runNegddMS){#neg ddMS
-        OutputDirectoryddMSNeg_in <- file.path(OutputDirectoryddMS,"Neg")
+        OutputDirectoryddMSNeg_in <- paste(OutputDirectoryddMS,"Neg\\",sep="")
         if(!dir.exists(OutputDirectoryddMSNeg_in)){ dir.create(OutputDirectoryddMSNeg_in) }
       }
     }
   }else{#more than 1 root folder  
-    OutputDirectory <- file.path(InputDirectory, foldersToRun[i], "Output")
+    OutputDirectory <- paste(InputDirectory, foldersToRun[i], "\\Output\\", sep="")
     if(!dir.exists(OutputDirectory)){ dir.create(OutputDirectory) }
     if(runPosAIF || runNegAIF){#AIF
-      OutputDirectoryAIF <- file.path(OutputDirectory, "AIF")    
+      OutputDirectoryAIF <- paste(OutputDirectory, "AIF\\", sep="")    
       if(!dir.exists(OutputDirectoryAIF)){  dir.create(OutputDirectoryAIF)  }
       if(runPosAIF){#pos AIF
-        OutputDirectoryAIFPos_in <- file.path(OutputDirectoryAIF, "Pos")
+        OutputDirectoryAIFPos_in <- paste(OutputDirectoryAIF, "Pos\\",sep="")
         if(!dir.exists(OutputDirectoryAIFPos_in)){ dir.create(OutputDirectoryAIFPos_in) }
       }
       if(runNegAIF){#neg AIF
-        OutputDirectoryAIFNeg_in <- file.path(OutputDirectoryAIF, "Neg")
+        OutputDirectoryAIFNeg_in <- paste(OutputDirectoryAIF, "Neg\\",sep="")
         if(!dir.exists(OutputDirectoryAIFNeg_in)){ dir.create(OutputDirectoryAIFNeg_in) }
       }
     }
     if(runPosddMS || runNegddMS){#ddMS
-      OutputDirectoryddMS <- file.path(OutputDirectory, "ddMS")    
+      OutputDirectoryddMS <- paste(OutputDirectory, "ddMS\\", sep="")    
       if(!dir.exists(OutputDirectoryddMS)){ dir.create(OutputDirectoryddMS) }
       if(runPosddMS){#pos ddMS
-        OutputDirectoryddMSPos_in <- file.path(OutputDirectoryddMS, "Pos")
+        OutputDirectoryddMSPos_in <- paste(OutputDirectoryddMS, "Pos\\",sep="")
         if(!dir.exists(OutputDirectoryddMSPos_in)){ dir.create(OutputDirectoryddMSPos_in) }
       }
       if(runPosddMS){#posByClass ddMS
-        OutputDirectoryddMSPosByClass_in <- file.path(OutputDirectoryddMS, "PosByClass")
+        OutputDirectoryddMSPosByClass_in <- paste(OutputDirectoryddMS, "PosByClass\\",sep="")
         if(!dir.exists(OutputDirectoryddMSPosByClass_in)){ dir.create(OutputDirectoryddMSPosByClass_in) }
       }
       if(runNegddMS){#negByClass ddMS
-        OutputDirectoryddMSNegByClass_in <- file.path(OutputDirectoryddMS,"NegByClass")
+        OutputDirectoryddMSNegByClass_in <- paste(OutputDirectoryddMS,"NegByClass\\",sep="")
         if(!dir.exists(OutputDirectoryddMSNegByClass_in)){ dir.create(OutputDirectoryddMSNegByClass_in) }
       }
       if(runNegddMS){#neg ddMS
-        OutputDirectoryddMSNeg_in <- file.path(OutputDirectoryddMS, "Neg")
+        OutputDirectoryddMSNeg_in <- paste(OutputDirectoryddMS, "Neg\\",sep="")
         if(!dir.exists(OutputDirectoryddMSNeg_in)){ dir.create(OutputDirectoryddMSNeg_in) }
       }
     }
@@ -1507,18 +1490,18 @@ for(i in seq_len(lengthFoldersToRun)){
   LibraryCriteria <- LibraryCriteria[toupper(LibraryCriteria[,4]) == "TRUE",] #subset LibraryCriteria to find ddMS libraries to run
   if(runNegddMS && nrow(LibraryCriteria)>0){
     NegDDLib <- TRUE
-    FeatureTable_dir_in<-file.path(fpath, FeatureTable_NEG)
+    FeatureTable_dir_in<-paste(fpath, FeatureTable_NEG, sep="")
     cat(paste0("Reading in file:\t", FeatureTable_NEG,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     for (c in 1:length(ddMS2NEG_in)){
-      MS2_dir_in <- file.path(fpath, ddMS2NEG_in[c])
+      MS2_dir_in <- paste(fpath, ddMS2NEG_in[c], sep="")
       cat(paste0("Reading in file:\t", ddMS2NEG_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       ExtraSample<-ExtraSampleNameddMSNEG_in[c]
       MS2_df_in <- createddMS2dataFrame(MS2_dir_in)
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in)
       
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";"))) 
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1536,17 +1519,17 @@ for(i in seq_len(lengthFoldersToRun)){
   LibraryCriteria <- LibraryCriteria[toupper(LibraryCriteria[,4]) == "TRUE",] #subset LibraryCriteria to find ddMS libraries to run
   if(runPosddMS && nrow(LibraryCriteria)>0){
     PosDDLib <- TRUE
-    FeatureTable_dir_in<-file.path(fpath, FeatureTable_POS)
+    FeatureTable_dir_in<-paste(fpath, FeatureTable_POS, sep="")
     cat(paste0("Reading in file:\t", FeatureTable_POS,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     for (c in 1:length(ddMS2POS_in)){
-      MS2_dir_in <- file.path(fpath, ddMS2POS_in[c])
+      MS2_dir_in <- paste(fpath, ddMS2POS_in[c],sep="")
       cat(paste0("Reading in file:\t", ddMS2POS_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       ExtraSample <- ExtraSampleNameddMSPOS_in[c]
       MS2_df_in <- createddMS2dataFrame(MS2_dir_in)
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in)
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";"))) 
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1568,14 +1551,14 @@ for(i in seq_len(lengthFoldersToRun)){
     cat(paste0("Reading in file:\t", FeatureTable_NEG,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     for (c in 1:length(ddMS2NEG_in)){
-      MS2_dir_in <- file.path(fpath, ddMS2NEG_in[c])
+      MS2_dir_in <- paste(fpath, ddMS2NEG_in[c], sep="")
       cat(paste0("Reading in file:\t", ddMS2NEG_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       ExtraSample<-ExtraSampleNameddMSNEG_in[c]
       MS2_df_in <- createddMS2dataFrame(MS2_dir_in)
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in)
       
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";"))) 
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1594,17 +1577,17 @@ for(i in seq_len(lengthFoldersToRun)){
   LibraryCriteria <- LibraryCriteria[toupper(LibraryCriteria[,4]) == "TRUE",] #subset LibraryCriteria to find ddMS libraries to run
   if(runPosddMS && nrow(LibraryCriteria)>0){
     PosClassDDLib<-TRUE
-    FeatureTable_dir_in<-file.path(fpath, FeatureTable_POS)
+    FeatureTable_dir_in<-paste(fpath, FeatureTable_POS, sep="")
     cat(paste0("Reading in file:\t", FeatureTable_POS,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     for (c in 1:length(ddMS2POS_in)){
-      MS2_dir_in<-file.path(fpath, ddMS2POS_in[c])
+      MS2_dir_in<-paste(fpath, ddMS2POS_in[c],sep="")
       cat(paste0("Reading in file:\t", ddMS2POS_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       ExtraSample<-ExtraSampleNameddMSPOS_in[c]
       MS2_df_in <- createddMS2dataFrame(MS2_dir_in)
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in)
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";"))) 
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1623,25 +1606,25 @@ for(i in seq_len(lengthFoldersToRun)){
   LibraryCriteria <- LibraryCriteria[toupper(LibraryCriteria[,5]) == "TRUE",] #subset LibraryCriteria to find AIF libraries to run
   if(runNegAIF && nrow(LibraryCriteria)>0){
     NegAIFLib <- TRUE
-    FeatureTable_dir_in<-file.path(fpath, FeatureTable_NEG)
+    FeatureTable_dir_in<-paste(fpath, FeatureTable_NEG, sep="")
     cat(paste0("Reading in file:\t", FeatureTable_NEG,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     #sort AIF files
     AIFMS1NEG_in <- AIFMS1NEG_in[order(AIFMS1NEG_in)]
     AIFMS2NEG_in <- AIFMS2NEG_in[order(AIFMS2NEG_in)]
     for (c in 1:length(AIFMS1NEG_in)){
-      MS1_dir_in <- file.path(fpath, AIFMS1NEG_in[c])
+      MS1_dir_in <- paste(fpath, AIFMS1NEG_in[c], sep="")
       cat(paste0("Reading in file:\t", AIFMS1NEG_in[c],"\nFrom Directory:\t\t", MS1_dir_in,"\n"))
       MS1_df_in <- createMS1dataFrame(MS1_dir_in)
       
-      MS2_dir_in <- file.path(fpath, AIFMS2NEG_in[c])
+      MS2_dir_in <- paste(fpath, AIFMS2NEG_in[c], sep="")
       cat(paste0("Reading in file:\t", AIFMS2NEG_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       MS2_df_in <- createAIFMS2dataFrame(MS2_dir_in)
       
       ExtraSample<-ExtraSampleNameAIFNEG_in[c]
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in, MS1_dir_in)
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";")))
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1659,24 +1642,24 @@ for(i in seq_len(lengthFoldersToRun)){
   LibraryCriteria <- LibraryCriteria[toupper(LibraryCriteria[,5]) == "TRUE",] #subset LibraryCriteria to find AIF libraries to run
   if(runPosAIF && nrow(LibraryCriteria)>0){
     PosAIFLib <- TRUE
-    FeatureTable_dir_in<-file.path(fpath, FeatureTable_POS)
+    FeatureTable_dir_in<-paste(fpath, FeatureTable_POS, sep="")
     cat(paste0("Reading in file:\t", FeatureTable_POS,"\nFrom Directory:\t\t", FeatureTable_dir_in,"\n"))
     FeatureList_in <- ReadFeatureTable(FeatureTable_dir_in)
     AIFMS1POS_in <- AIFMS1POS_in[order(AIFMS1POS_in)]
     AIFMS2POS_in <- AIFMS2POS_in[order(AIFMS2POS_in)]
     for (c in 1:length(AIFMS1POS_in)){
-      MS1_dir_in <- file.path(fpath, AIFMS1POS_in[c])
+      MS1_dir_in <- paste(fpath, AIFMS1POS_in[c], sep="")
       cat(paste0("Reading in file:\t", AIFMS1POS_in[c],"\nFrom Directory:\t\t", MS1_dir_in,"\n"))
       MS1_df_in <- createMS1dataFrame(MS1_dir_in)
       
-      MS2_dir_in <- file.path(fpath, AIFMS2POS_in[c])
+      MS2_dir_in <- paste(fpath, AIFMS2POS_in[c], sep="")
       cat(paste0("Reading in file:\t", AIFMS2POS_in[c],"\nFrom Directory:\t\t", MS2_dir_in,"\n"))
       MS2_df_in <- createAIFMS2dataFrame(MS2_dir_in)
       
       ExtraSample<-ExtraSampleNameAIFPOS_in[c]
       OutputInfo <- c(MS2_dir_in, ExtraSample, FeatureTable_dir_in, MS1_dir_in)
       for(i in seq_len(nrow(LibraryCriteria))){
-        LibraryFile <- file.path(InputLibrary, LibraryCriteria[i,1]) #create directory/file of each library
+        LibraryFile <- paste(InputLibrary, LibraryCriteria[i,1], sep="") #create directory/file of each library
         OutputName <- paste(ExtraSample,"_",gsub('.{4}$', '', LibraryCriteria[i,1]), sep="") #get ms2 name and library name
         ConfirmANDCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,2]), ";")))
         ConfirmORCol <- as.numeric(unlist(strsplit(as.character(LibraryCriteria[i,3]), ";")))
@@ -1693,24 +1676,24 @@ for(i in seq_len(lengthFoldersToRun)){
     print("Creating Identifications for Positive Mode")
   }
   if(runPosddMS & !runPosAIF){
-    ddMS2directory<-file.path(OutputDirectoryddMSPos_in,"Confirmed_Lipids")
-    Classdirectory<-file.path(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids")
+    ddMS2directory<-paste(OutputDirectoryddMSPos_in,"Confirmed_Lipids\\", sep="")
+    Classdirectory<-paste(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory<-"Nothing"
-    CreateIDs(file.path(fpath,FeatureTable_POS), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
+    CreateIDs(paste(fpath,FeatureTable_POS,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
   }
   
   if(runPosAIF & runPosddMS){
-    ddMS2directory<-file.path(OutputDirectoryddMSPos_in,"Confirmed_Lipids")
-    Classdirectory<-file.path(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids")
-    AIFdirectory<-file.path(OutputDirectoryAIFPos_in,"Confirmed_Lipids")
-    CreateIDs(file.path(fpath,FeatureTable_POS), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
+    ddMS2directory<-paste(OutputDirectoryddMSPos_in,"Confirmed_Lipids\\", sep="")
+    Classdirectory<-paste(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids\\", sep="")
+    AIFdirectory<-paste(OutputDirectoryAIFPos_in,"Confirmed_Lipids\\", sep="")
+    CreateIDs(paste(fpath,FeatureTable_POS,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
   }
   
   if(runPosAIF & !runPosddMS){
     ddMS2directory<-"Nothing"
     Classdirectory<-"Nothing"
-    AIFdirectory<-file.path(OutputDirectoryAIFPos_in,"Confirmed_Lipids")
-    CreateIDs(file.path(fpath,FeatureTable_POS), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
+    AIFdirectory<-paste(OutputDirectoryAIFPos_in,"Confirmed_Lipids\\", sep="")
+    CreateIDs(paste(fpath,FeatureTable_POS,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
   }
   
   if(runNegAIF || runNegddMS){
@@ -1720,22 +1703,22 @@ for(i in seq_len(lengthFoldersToRun)){
   if(runNegAIF & !runNegddMS){
     ddMS2directory <- "Nothing"
     Classdirectory <- "Nothing"
-    AIFdirectory <- file.path(OutputDirectoryAIFNeg_in,"Confirmed_Lipids")
-    CreateIDs(file.path(fpath,FeatureTable_NEG), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
+    AIFdirectory <- paste(OutputDirectoryAIFNeg_in,"Confirmed_Lipids\\", sep="")
+    CreateIDs(paste(fpath,FeatureTable_NEG,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
   }
   
   if(runNegddMS & !runNegAIF){
-    ddMS2directory <- file.path(OutputDirectoryddMSNeg_in,"Confirmed_Lipids")
-    Classdirectory <- file.path(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids")
+    ddMS2directory <- paste(OutputDirectoryddMSNeg_in,"Confirmed_Lipids\\", sep="")
+    Classdirectory <- paste(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory <- "Nothing"
-    CreateIDs(file.path(fpath,FeatureTable_NEG), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
+    CreateIDs(paste(fpath,FeatureTable_NEG,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
   }
   
   if(runNegddMS & runNegAIF){
-    ddMS2directory <- file.path(OutputDirectoryddMSNeg_in,"Confirmed_Lipids")
-    Classdirectory <- file.path(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids")
-    AIFdirectory <- file.path(OutputDirectoryAIFNeg_in,"Confirmed_Lipids")
-    CreateIDs(file.path(fpath,FeatureTable_NEG), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
+    ddMS2directory <- paste(OutputDirectoryddMSNeg_in,"Confirmed_Lipids\\", sep="")
+    Classdirectory <- paste(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids\\", sep="")
+    AIFdirectory <- paste(OutputDirectoryAIFNeg_in,"Confirmed_Lipids\\", sep="")
+    CreateIDs(paste(fpath,FeatureTable_NEG,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
   }
   
 }#end folder loop
