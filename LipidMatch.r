@@ -51,13 +51,14 @@ ManuallyInputVariables <- FALSE
 
 
 #Checks for updates, installs packagaes: "installr" "stringr" "sqldf" "gWidgets" "gWidgetstcltk" and "compiler"
-#if(!require(installr)) {
-#  install.packages("installr",  repos = c(CRAN = "http://cran.rstudio.com")); install.packages("stringr", repos = c(CRAN = "http://cran.rstudio.com")); require(installr)}
-#library(installr)
-if("sqldf" %in% rownames(installed.packages()) == FALSE) {install.packages("sqldf",  repos = c(CRAN = "http://cran.rstudio.com"))}
+if(!require(installr)) {
+  install.packages("installr"); install.packages("stringr"); require(installr)}
+library(installr)
+
+if("sqldf" %in% rownames(installed.packages()) == FALSE) {install.packages("sqldf")}
 # if("compiler" %in% rownames(installed.packages()) == FALSE) {install.packages("compiler")}
-if("gWidgets" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgets",  repos = c(CRAN = "http://cran.rstudio.com"))}
-if("gWidgetstcltk" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgetstcltk",  repos = c(CRAN = "http://cran.rstudio.com"))}
+if("gWidgets" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgets")}
+if("gWidgetstcltk" %in% rownames(installed.packages()) == FALSE) {install.packages("gWidgetstcltk")}
 require(gWidgets)
 require(gWidgetstcltk)
 options(guiToolkit="tcltk") 
@@ -126,7 +127,7 @@ if (ManuallyInputVariables==TRUE){
 }else if(csvInput == TRUE){
   ####################### Get input from csv VARIABLES SECTION ###############################
   #parametersDirectory
-parametersDir <- "C:/Users/Jeremy/Desktop/LipidMatch_Flow-0.0.2/LipidMatch_Flow-0.0.2/LipidMatch_Flow/LipidMatch_Distribution/"
+parametersDir <- "C:/Users/Jeremy/Desktop/Desktop/Instrumentation/Software/MSms/LipidMatch_Workflow/LipidMatch_Flow_Versions/LipidMatch_Flow_Portable/LipidMatch_Flow/LipidMatch_Distribution/"
 parametersFile <- paste(parametersDir, "LIPIDMATCH_PARAMETERS_Agilent_QTOF_6530.csv", sep="")
   parametersInput_csv <- read.csv(parametersFile, sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE)
   parametersInput_csv <- as.matrix(parametersInput_csv)
@@ -1288,14 +1289,105 @@ CreateIDs <- function(PeakTableDirectory, ddMS2directory, Classdirectory, AIFdir
   
 }
 
-####End functions####
+############function to append fragments to final NegIDed feature table, NegPos is "Neg" or "Pos"################
+# Jeremy Koelmel 02/13/2020
+AppendFrag <- function (CommentColumn, RowStartForFeatureTableData, InputDirectory, NegPos){
+  #Directory of tentative identifications
+  if (NegPos=="Neg") {
+    Dir_Additional_Files <- paste(InputDirectory,"Output/ddMS/Neg/Additional_Files",sep="")
+  } else if (NegPos=="Pos") {
+    Dir_Additional_Files <- paste(InputDirectory,"Output/ddMS/Pos/Additional_Files",sep="")
+  } else {
+    stop("error in appending fragments: NegPos input must be either 'Neg' or 'Pos'")
+  }
+  #List all files with fragment information
+  All_Info_Files<-list.files(Dir_Additional_Files, pattern = "_All.csv")
+  #matrix to make with appended fragments for comments
+  #empty row is included, if a matrix is one dimension it will be converted to a vector
+  FragsFilled<-matrix(c("Tentative_IDs",0,"Fragments",0,"Comment",0,"file",0,"#Fragments",0),2,5)
+  #Iteratively search across all files and compile species with fragments into one table
+  for (i in 1:length(All_Info_Files)){
+    #import file (i = 5 is a good test case)
+    #print(i)
+    All_Info_Temp<-read.csv(paste(Dir_Additional_Files,"/",All_Info_Files[i],sep=""), sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=FALSE, check.names = FALSE)
+    All_Info_Temp<-as.matrix(All_Info_Temp)
+    #get instances of RT_Min in headers to define the fragment columns
+    RT_Min_Index<-grep("RT_min", All_Info_Temp[1,], value = F, fixed = T)
+    #Index which columns have fragments (with and without the precursor included)
+    Frag_Index<-3:(RT_Min_Index[1]-1)
+    Frag_Index_No_Adduct<-4:(RT_Min_Index[1]-1)
+    ## Count 1's, if no 1's remove rows
+    Frags<-which(All_Info_Temp[2:nrow(All_Info_Temp),Frag_Index_No_Adduct]=="1")  
+    #if there are fragments
+    if (length(Frags)>1){
+      # store current row
+      RowFragsFilled<-nrow(FragsFilled)
+      # reduce to those with Frags
+      for (x in 2:nrow(All_Info_Temp)) {
+        #calculate number of fragments
+        Frag_Count<-length(which(All_Info_Temp[x,Frag_Index_No_Adduct]=="1"))
+        if(Frag_Count>0) {
+          #Combine all fragments with 1's into one line
+          Frags_One_Line<-paste(All_Info_Temp[1,which(All_Info_Temp[x,Frag_Index]=="1")+2],collapse=";")
+          #Vector of attributes (names, fragments, comment, File), will add file later
+          VectorNewTable<-c(All_Info_Temp[x,2],Frags_One_Line,All_Info_Temp[x,RT_Min_Index[1]+2],NA,Frag_Count)
+          FragsFilled<-rbind(FragsFilled,VectorNewTable)
+        }
+      }
+      FragsFilled[(RowFragsFilled+1):nrow(FragsFilled),4]<-gsub("_Neg.*","",All_Info_Files[i])
+    }
+    ## 1's will also be used to pull out and append observed fragments
+  }
+  #Header
+  Header_Frags<-FragsFilled[1,]
+  #Remove empty row
+  FragsFilled<-FragsFilled[c(-1,-2),]
+  #Sort by the number of fragments
+  FragsFilledSorted<-FragsFilled[order(as.numeric(FragsFilled[,5]),decreasing=TRUE),]
+  #Sort by the comments
+  FragsFilledSorted<-FragsFilledSorted[order(FragsFilledSorted[,3]),]
+  #Add back headers
+  FragsFilledSortedHead<-rbind(Header_Frags,FragsFilledSorted)
+  #Export total list of fragments and hits by FluoroMatch before appending and reducing
+  write.table(FragsFilledSortedHead, paste(InputDirectory,"/Output/Neg_OnlyIDs_Fragments.csv",sep=""), sep=",",col.names=FALSE, row.names=FALSE, quote=TRUE, na="NA")
+  #aggregate values
+  #FragsSortAggregate<-aggregate(FragsFilledSorted, list(FragsFilledSorted[,3]), function(x) paste0(unique(x)))
+  FragsSortAggregate<-aggregate(FragsFilledSorted, by=list(FragsFilledSorted[,3]),function(x) paste(x,sep="|"))
+  #Import NegIDed to append new columns
+  NegIDed <- read.csv(paste(InputDirectory,"/Output/NegIDed.csv",sep=""), header=FALSE)
+  
+  #################################start here#################################
+  
+  #Add 4 extra columns to be filled with 1) Tentative_IDs	2) Fragments	3) number of fragments 4) Files
+  NewCols<-matrix(NA,nrow(NegIDed),4)
+  NewCols[1,]<-c("Potential_IDs","Frags","Num_Frags","Files")
+  NegIDed <- cbind(NegIDed, NewCols)
+  NegIDed <- as.matrix(NegIDed)
+  #Break aggregates up and append to NegIDed
+  for (i in RowStartForFeatureTableData:nrow(NegIDed)) {
+    if (NegIDed[i,CommentColumn]%in%FragsSortAggregate[,1]) {
+      #find the row in the FragSorAggregate table which has a matching identified to NegIDed
+      Feature_Position<-match(NegIDed[i,CommentColumn],FragsSortAggregate[,1])
+      #Collapse strings of each variable to append and add to NegIDed
+      NegIDed[i,(ncol(NegIDed)-3)]<-paste0(FragsSortAggregate[Feature_Position,2][[1]],collapse="|")
+      NegIDed[i,(ncol(NegIDed)-2)]<-paste0(FragsSortAggregate[Feature_Position,3][[1]],collapse="|")
+      NegIDed[i,(ncol(NegIDed)-1)]<-paste0(FragsSortAggregate[Feature_Position,6][[1]],collapse="|")
+      NegIDed[i,ncol(NegIDed)]<-paste0(FragsSortAggregate[Feature_Position,5][[1]],collapse="|")
+    }
+  }
+  #Get the row for which no IDs exist
+  NoIDs_row<-min(which(nchar(NegIDed[,ncol(NegIDed)-4])<1))
+  # sort from that row down using the first element of number of fragments
+  NegIDed[NoIDs_row:nrow(NegIDed),]<-NegIDed[order(NegIDed[NoIDs_row:nrow(NegIDed),ncol(NegIDed)-1],decreasing=TRUE)+NoIDs_row-1,]
+  write.table(NegIDed, paste(InputDirectory,"/Output/NegIDed_Fragments.csv",sep=""), sep=",",col.names=FALSE, row.names=FALSE, quote=TRUE, na="NA")
+}
 
-
+####################################End functions##########################################
 
 
 ####Read in files, create folder structure, and error handle####
 if(length(foldersToRun)==0){
-  lengthFoldersToRun <- 1 #if there are no subfolders, that means you have the faeture table and ms2s in that current directory, therefore, run analysis on those files.
+  lengthFoldersToRun <- 1 #if there are no subfolders, that means you have the feature table and ms2s in that current directory, therefore, run analysis on those files.
 }else{
   lengthFoldersToRun <- length(foldersToRun)#run analysis on all subfolders
 }
@@ -1680,6 +1772,7 @@ for(i in seq_len(lengthFoldersToRun)){
     Classdirectory<-paste(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory<-"Nothing"
     CreateIDs(paste(fpath,FeatureTable_POS,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
+    AppendFrag(CommentColumn, RowStartForFeatureTableData, InputDirectory, NegPos = "Pos")
   }
   
   if(runPosAIF & runPosddMS){
@@ -1687,7 +1780,8 @@ for(i in seq_len(lengthFoldersToRun)){
     Classdirectory<-paste(OutputDirectoryddMSPosByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory<-paste(OutputDirectoryAIFPos_in,"Confirmed_Lipids\\", sep="")
     CreateIDs(paste(fpath,FeatureTable_POS,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibPOS, OutputDirectory, PosDDLib, PosClassDDLib, PosAIFLib, "Pos")
-  }
+    AppendFrag(CommentColumn, RowStartForFeatureTableData, InputDirectory, NegPos = "Pos")
+    }
   
   if(runPosAIF & !runPosddMS){
     ddMS2directory<-"Nothing"
@@ -1712,14 +1806,16 @@ for(i in seq_len(lengthFoldersToRun)){
     Classdirectory <- paste(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory <- "Nothing"
     CreateIDs(paste(fpath,FeatureTable_NEG,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
-  }
+    AppendFrag(CommentColumn, RowStartForFeatureTableData, InputDirectory, NegPos = "Neg")
+    }
   
   if(runNegddMS & runNegAIF){
     ddMS2directory <- paste(OutputDirectoryddMSNeg_in,"Confirmed_Lipids\\", sep="")
     Classdirectory <- paste(OutputDirectoryddMSNegByClass_in,"Confirmed_Lipids\\", sep="")
     AIFdirectory <- paste(OutputDirectoryAIFNeg_in,"Confirmed_Lipids\\", sep="")
     CreateIDs(paste(fpath,FeatureTable_NEG,sep=""), ddMS2directory, Classdirectory, AIFdirectory, ImportLibNEG, OutputDirectory, NegDDLib, NegClassDDLib, NegAIFLib, "Neg")
-  }
+    AppendFrag(CommentColumn, RowStartForFeatureTableData, InputDirectory, NegPos = "Neg")
+    }
   
 }#end folder loop
 
@@ -1727,6 +1823,10 @@ options(warn=0)#suppress warning off
 
 Rversion<-(paste("ERROR:R version must be equal to, or between, 2.0.3 and 3.3.3. Please download 3.3.3. You are using version: ", paste(version$major,version$minor,sep=".")))
 OutputRemoval<-paste("ERROR: Remove your 'Output' folder from the current Input Directory: ", InputDirectory)
+
+###Code to append fragments and tentative annotations###
+
+
 
 
 #DEBUG CreateIDs

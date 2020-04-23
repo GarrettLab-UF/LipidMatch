@@ -1,0 +1,19 @@
+Package: sqldf
+Version: 0.4-10
+Date: 2014-10-31
+Title: Perform SQL Selects on R Data Frames
+Author: G. Grothendieck <ggrothendieck@gmail.com>
+Maintainer: G. Grothendieck <ggrothendieck@gmail.com>
+Description: Description: Manipulate R data frames using SQL.
+ByteCompile: true
+Depends: R (>= 3.1.0), gsubfn (>= 0.6), proto, RSQLite (>= 1.0.0)
+Suggests: RH2, RMySQL, RPostgreSQL, svUnit, tcltk, MASS
+Imports: DBI (>= 0.2-5), chron
+License: GPL-2
+BugReports: http://groups.google.com/group/sqldf
+URL: http://sqldf.googlecode.com
+Packaged: 2014-11-06 23:43:55 UTC; Louis
+NeedsCompilation: no
+Repository: CRAN
+Date/Publication: 2014-11-07 01:01:50
+Built: R 3.3.2; ; 2017-08-22 15:58:55 UTC; windows

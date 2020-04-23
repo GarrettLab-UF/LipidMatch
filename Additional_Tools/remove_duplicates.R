@@ -184,7 +184,7 @@ NegMode<-TRUE
 PosNegCombined<-TRUE
 
 if(PosMode==TRUE) {
-Directory_pos <- "C:/Users/Jeremy/Desktop/Demo_LM2/LipidMatch_Run/Output/PosIDed.csv"
+Directory_pos <- "C:/DESKTOP/DATA/2019_07_02_MeeraOxidized/LM_Flow_AllOils/MeeraOxidizedFinal/PosIDed.csv"
   data_pos <- read.csv(Directory_pos, sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=TRUE,stringsAsFactors=FALSE) # 2018-02-02: Yang add stringsAsFactors=FALSE flag to force variables (such as Intensity_Ranked) to be characters instead of factors
   adduct_col<-ncol(data_pos)-1
   annotation_col<-ncol(data_pos)-4
@@ -193,7 +193,7 @@ Directory_pos <- "C:/Users/Jeremy/Desktop/Demo_LM2/LipidMatch_Run/Output/PosIDed
 }
 
 if(NegMode==TRUE) {
-Directory_neg <- "C:/Users/Jeremy/Desktop/Demo_LM2/LipidMatch_Run/Output/NegIDed.csv"
+Directory_neg <- "C:/DESKTOP/DATA/2019_07_02_MeeraOxidized/LM_Flow_AllOils/MeeraOxidizedFinal/NegIDed.csv"
   data_neg <- read.csv(Directory_neg, sep=",", na.strings="NA", dec=".", strip.white=TRUE,header=TRUE,stringsAsFactors=FALSE) # 2018-02-02: Yang add stringsAsFactors=FALSE flag to force variables (such as Intensity_Ranked) to be characters instead of factors
   adduct_col<-ncol(data_neg)-1
   annotation_col<-ncol(data_neg)-4

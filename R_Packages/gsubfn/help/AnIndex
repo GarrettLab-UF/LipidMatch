@@ -1,0 +1,15 @@
+gsubfn-package	gsubfn-package
+$.fn	fn
+as.function.formula	as.function.formula
+cat0	gsubfn
+eval.with.vis	fn
+fn	fn
+gsubfn	gsubfn
+match.funfn	match.funfn
+matrixfn	fn
+ostrapply	strapply
+read.pattern	read.pattern
+strapply	strapply
+strapply1	strapply
+strapplyc	strapply
+tclList2R	strapply
